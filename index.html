@@ -1,0 +1,530 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Teleprompter</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --xpanol-yellow: #F8AC10;
+            --xpanol-purple: #b18cff;
+            --panel: #050505;
+            --border: #242424;
+        }
+
+        body {
+            margin: 0;
+            background: #111;
+            color: #f2f2f2;
+            font-family: 'Special Elite', cursive;
+        }
+
+        /* Header */
+        #header {
+            text-align: center;
+            padding: 20px 0 10px 0;
+        }
+
+        #header h1 {
+            font-family: 'Special Elite', cursive;
+            font-size: 48px;
+            margin: 0;
+        }
+
+        #header h1 .yellow {
+            color: var(--xpanol-yellow);
+        }
+
+        #header h1 .red {
+            color: red;
+        }
+
+        #header h2 {
+            font-family: 'Special Elite', cursive;
+            font-size: 24px;
+            margin: 5px 0 0 0;
+            color: #ffffff;
+        }
+
+        /* Controls */
+        #controls {
+            border-radius: 0 0 12px 12px;
+            position: fixed;
+            top: 120px;
+            left: 0;
+            width: 100%;
+            background: #000;
+            padding: 18px 20px;
+            box-sizing: border-box;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        label {
+            font-size: 16px;
+            color: var(--xpanol-yellow);
+        }
+
+        input[type=range] {
+            width: 180px;
+            /* Shortened slider */
+            accent-color: var(--xpanol-yellow);
+        }
+
+        button {
+            border-radius: 8px;
+            background: transparent;
+            border: 2px solid var(--xpanol-yellow);
+            color: var(--xpanol-yellow);
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            padding: 6px 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--xpanol-yellow);
+            color: #000;
+        }
+
+        select {
+            border-radius: 8px;
+            min-width: 260px;
+            background: #000;
+            border: 2px solid var(--xpanol-purple);
+            color: #fff;
+            font-family: 'Special Elite', cursive;
+            font-size: 14px;
+            padding: 7px 10px;
+        }
+
+        .langBtn.active {
+            background: var(--xpanol-yellow);
+            color: #000;
+        }
+
+        #customTextBtn {
+            border-color: var(--xpanol-purple);
+            color: var(--xpanol-purple);
+        }
+
+        #customTextBtn:hover {
+            background: var(--xpanol-purple);
+            color: #000;
+        }
+
+        /* Teleprompter */
+        #prompter-wrapper {
+            border-radius: 12px;
+            margin-top: 190px;
+            height: calc(100vh - 190px);
+            overflow: hidden;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        #prompter-text {
+            font-size: 28px;
+            line-height: 1.6;
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Colors for Spanish and English */
+        .spanish {
+            color: var(--xpanol-yellow);
+        }
+
+        .english {
+            color: var(--xpanol-purple);
+        }
+
+        /* Hidden editor panel */
+        #editorPanel {
+            border-radius: 12px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 900px;
+            height: 70%;
+            background: var(--panel);
+            color: #fff;
+            border: 3px solid var(--xpanol-yellow);
+            padding: 20px;
+            box-sizing: border-box;
+            z-index: 20;
+            display: none;
+            flex-direction: column;
+        }
+
+        #editorPanel h3 {
+            margin: 0 0 12px;
+            color: var(--xpanol-yellow);
+            font-size: 24px;
+        }
+
+        #editorPanel p {
+            margin: 0 0 14px;
+            color: var(--xpanol-purple);
+            line-height: 1.35;
+        }
+
+        .editorActions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+
+        #editorPanel textarea {
+            border-radius: 8px;
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #111;
+            color: #f2f2f2;
+            font-family: 'Special Elite', cursive;
+            font-size: 18px;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: none;
+            border: 2px solid var(--xpanol-yellow);
+        }
+
+        #editorPanel button {
+            margin-top: 10px;
+        }
+
+        @media(max-width:760px) {
+            #controls {
+                position: static;
+                padding: 18px;
+            }
+
+            #prompter-wrapper {
+                margin-top: 0;
+                height: calc(100vh - 250px);
+            }
+
+            select,
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Nagłówek -->
+    <div id="header">
+        <h1><span class=</span> <span class=></span></h1>
+        <h1>
+    <span style="color: #F8AC10;">PRO!</span>
+    <span style="color: #b18cff;">READ</span>
+</h1>
+        <h2>TRABALENGUAS | TONGUE TWISTER</h2>
+    </div>
+
+    <!-- Kontrolki -->
+    <div id="controls">
+        <select id="textPresetSelect" aria-label="Choose text">
+            <option value="mixedLaunch">EN + ES | Launch rhythm</option>
+            <option value="spanishTraffic">ES | Tráfico y tendencias</option>
+            <option value="spanishCampaigns">ES | Campañas creativas</option>
+            <option value="englishFunnels">EN | Fast funnels</option>
+            <option value="englishEmail">EN | Email engagement</option>
+            <option value="englishBranding">EN | Branding boost</option>
+        </select>
+        <button class="langBtn active" id="showAllBtn">All</button>
+        <button class="langBtn" id="showSpanishBtn">ES</button>
+        <button class="langBtn" id="showEnglishBtn">EN</button>
+        <button id="rewindBtn">Rewind</button>
+        <button id="playPauseBtn">Pause</button>
+        <button id="restartBtn">Restart</button>
+        <button id="customTextBtn">Paste text</button>
+        <label>
+            Velocidad / Speed
+            <input type="range" id="speedControl" min="0" max="2" step="0.1" value="1">
+            <span id="speedValue">1.0x</span>
+        </label>
+    </div>
+
+    <!-- Teleprompter -->
+    <div id="prompter-wrapper">
+        <div id="prompter-text">
+            <p class="spanish">Tres tráileres de tráfico trinan tendencias, tres tweets estratégicos trazan tramas y trucos, tres trámites de tráfico triunfan transformando target.</p>
+            <p class="spanish">Este trabalenguas digital ayuda a entrenar la pronunciación rápida y mejora la fluidez al hablar sobre marketing digital en español.</p>
+
+            <p class="spanish">Marketing móvil mueve millones, mientras marcas medianas multiplican métricas mediante mensajes memorables.</p>
+            <p class="spanish">Campañas creativas conectan clientes cautivos, creando contenido cauteloso pero convincente que captura clicks constantes.</p>
+
+            <p class="english">Fast funnels fuel frequent followers, five Facebook frames frame fantastic features, fickle flags of feedback favor forward-focused flows.</p>
+            <p class="english">This English tongue twister strengthens articulation and rhythm, perfect for digital marketers practicing precise speech and copy delivery.</p>
+            <p class="english">Combine both sections to switch between Spanish and English seamlessly, ideal for bilingual training sessions or multilingual presentations.</p>
+            <p class="english">Branding brilliance boosts big business, building better blogs, bold banners, and brilliant buyer benefits.</p>
+            <p class="english">Social strategies swiftly spark shares, streamlining stories, stimulating subscribers, and strengthening sales simultaneously.</p>
+            <p class="english">Email efforts elevate engagement efficiently, ensuring every email elicits enthusiastic entries and expanding exposure exponentially.</p>
+        </div>
+    </div>
+
+    <!-- Ukryty panel edycji -->
+    <div id="editorPanel">
+        <h3>Paste your own text / Pega tu propio texto</h3>
+        <p>Separate paragraphs with a blank line. Spanish paragraphs are detected by accents; you can also start a paragraph with ES: or EN:.</p>
+        <textarea id="editorText"></textarea>
+        <div class="editorActions">
+            <button id="cancelTextBtn">Cancel</button>
+            <button id="saveTextBtn">Save & Close</button>
+        </div>
+    </div>
+
+    <script>
+        let speed = 1;
+        let position = 0;
+        let isPlaying = true;
+        let currentPreset = "mixedLaunch";
+        let currentFilter = "all";
+
+        const text = document.getElementById("prompter-text");
+        const textPresetSelect = document.getElementById("textPresetSelect");
+        const speedControl = document.getElementById("speedControl");
+        const playPauseBtn = document.getElementById("playPauseBtn");
+        const rewindBtn = document.getElementById("rewindBtn");
+        const restartBtn = document.getElementById("restartBtn");
+        const customTextBtn = document.getElementById("customTextBtn");
+        const showAllBtn = document.getElementById("showAllBtn");
+        const showSpanishBtn = document.getElementById("showSpanishBtn");
+        const showEnglishBtn = document.getElementById("showEnglishBtn");
+
+        const editorPanel = document.getElementById("editorPanel");
+        const editorText = document.getElementById("editorText");
+        const saveTextBtn = document.getElementById("saveTextBtn");
+        const cancelTextBtn = document.getElementById("cancelTextBtn");
+
+        const textLibrary = {
+            mixedLaunch: [{
+                    lang: "spanish",
+                    body: "Tres tráileres de tráfico trinan tendencias, tres tweets estratégicos trazan tramas y trucos, tres trámites de tracking triunfan transformando target."
+                },
+                {
+                    lang: "spanish",
+                    body: "Campañas con copies claros conquistan clientes curiosos, crean clics constantes y convierten carritos callados."
+                },
+                {
+                    lang: "english",
+                    body: "Fast funnels fuel frequent followers, five Facebook frames frame fantastic features, and fresh feedback favors forward-focused flows."
+                },
+                {
+                    lang: "english",
+                    body: "Smart social stories spark shares, strengthen subscribers, and steer steady sales through sharp strategy."
+                }
+            ],
+            spanishTraffic: [{
+                    lang: "spanish",
+                    body: "Tráfico, tracking y tendencias trazan tres trayectorias; tres técnicos testean titulares, tags y textos tácticos."
+                },
+                {
+                    lang: "spanish",
+                    body: "Treinta tweets traen tráfico temprano, treinta tests trabajan titulares, treinta targets transforman tráfico en trato."
+                }
+            ],
+            spanishCampaigns: [{
+                    lang: "spanish",
+                    body: "Campañas creativas conectan clientes cautivos, creando contenido convincente que captura clics constantes."
+                },
+                {
+                    lang: "spanish",
+                    body: "Marcas memorables miden métricas móviles, mientras mensajes mínimos multiplican menciones, leads y margen."
+                }
+            ],
+            englishFunnels: [{
+                    lang: "english",
+                    body: "Fast funnels filter fickle followers, finding focused fans for fresh offers and frictionless forms."
+                },
+                {
+                    lang: "english",
+                    body: "Clear calls convert cautious customers, crafting clicks, carts, and committed clients from clever campaigns."
+                }
+            ],
+            englishEmail: [{
+                    lang: "english",
+                    body: "Email engines elevate engagement efficiently, ensuring every email earns eager entries and expands exposure."
+                },
+                {
+                    lang: "english",
+                    body: "Subject lines sell softly, sending subscribers swift signals, strong stories, and simple steps."
+                }
+            ],
+            englishBranding: [{
+                    lang: "english",
+                    body: "Branding brilliance boosts big business, building better blogs, bold banners, and buyer benefits."
+                },
+                {
+                    lang: "english",
+                    body: "Paid posts push precise prospects past passive pauses, producing purchases through persuasive positioning."
+                }
+            ]
+        };
+
+        function escapeHTML(value) {
+            return value
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        function renderParagraphs(paragraphs) {
+            const filtered = paragraphs.filter(item => currentFilter === "all" || item.lang === currentFilter);
+            text.innerHTML = filtered.map(item => `<p class="${item.lang}">${escapeHTML(item.body)}</p>`).join("");
+            resetScroll();
+        }
+
+        function loadPreset(value) {
+            currentPreset = value;
+            renderParagraphs(textLibrary[currentPreset]);
+        }
+
+        function setFilter(value) {
+            currentFilter = value;
+            showAllBtn.classList.toggle("active", value === "all");
+            showSpanishBtn.classList.toggle("active", value === "spanish");
+            showEnglishBtn.classList.toggle("active", value === "english");
+            loadPreset(currentPreset);
+        }
+
+        function resetScroll() {
+            position = 0;
+            text.style.top = position + "px";
+        }
+
+        function openEditor() {
+            editorText.value = "";
+            editorPanel.style.display = "flex";
+            editorText.focus();
+        }
+
+        function closeEditor() {
+            editorPanel.style.display = "none";
+        }
+
+        function parseCustomText(value) {
+            return value
+                .split(/\n\s*\n/)
+                .map(p => p.trim())
+                .filter(Boolean)
+                .map(p => {
+                    let lang = /[áéíóúñüÁÉÍÓÚÑÜ¿¡]/.test(p) ? "spanish" : "english";
+                    let body = p;
+
+                    if (/^ES:/i.test(p)) {
+                        lang = "spanish";
+                        body = p.replace(/^ES:\s*/i, "");
+                    }
+
+                    if (/^EN:/i.test(p)) {
+                        lang = "english";
+                        body = p.replace(/^EN:\s*/i, "");
+                    }
+
+                    return {
+                        lang,
+                        body: body.replace(/\n/g, " ")
+                    };
+                });
+        }
+
+        // Speed slider
+        speedControl.addEventListener("input", function() {
+            speed = parseFloat(this.value);
+            document.getElementById("speedValue").textContent = speed.toFixed(1) + "x";
+        });
+
+        document.getElementById("speedValue").textContent = speed.toFixed(1) + "x";
+
+        textPresetSelect.addEventListener("change", function() {
+            loadPreset(this.value);
+        });
+
+        showAllBtn.addEventListener("click", () => setFilter("all"));
+        showSpanishBtn.addEventListener("click", () => setFilter("spanish"));
+        showEnglishBtn.addEventListener("click", () => setFilter("english"));
+
+        // Play / Pause
+        playPauseBtn.addEventListener("click", function() {
+            isPlaying = !isPlaying;
+            playPauseBtn.textContent = isPlaying ? "Pause" : "Play";
+        });
+
+        // Rewind
+        rewindBtn.addEventListener("click", function() {
+            position += 200;
+            text.style.top = position + "px";
+        });
+
+        // Restart
+        restartBtn.addEventListener("click", function() {
+            resetScroll();
+            isPlaying = true;
+            playPauseBtn.textContent = "Pause";
+        });
+
+        customTextBtn.addEventListener("click", openEditor);
+        cancelTextBtn.addEventListener("click", closeEditor);
+
+        // Hidden editor panel: Ctrl+E
+        document.addEventListener("keydown", function(e) {
+            if (e.ctrlKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                if (editorPanel.style.display === "flex") {
+                    closeEditor();
+                } else {
+                    openEditor();
+                }
+            }
+        });
+
+        // Save new text
+        saveTextBtn.addEventListener("click", function() {
+            const customParagraphs = parseCustomText(editorText.value);
+            if (customParagraphs.length) {
+                textLibrary.custom = customParagraphs;
+                currentPreset = "custom";
+                if (!textPresetSelect.querySelector("option[value='custom']")) {
+                    const option = document.createElement("option");
+                    option.value = "custom";
+                    option.textContent = "Custom / Propio";
+                    textPresetSelect.appendChild(option);
+                }
+                textPresetSelect.value = "custom";
+                renderParagraphs(customParagraphs);
+            }
+            closeEditor();
+        });
+
+        function scrollText() {
+            if (isPlaying) {
+                position -= speed;
+                text.style.top = position + "px";
+            }
+            requestAnimationFrame(scrollText);
+        }
+
+        scrollText();
+        loadPreset(currentPreset);
+    </script>
+
+</body>
+
+</html>
