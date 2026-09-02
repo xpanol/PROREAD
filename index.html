@@ -1,0 +1,416 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PRO!READ</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --xpanol-yellow:#F8AC10;
+    --xpanol-purple:#7C3AED;
+}
+
+body{
+    margin:0;
+    background:#111;
+    color:#f2f2f2;
+    font-family:'Special Elite', cursive;
+}
+
+/* Header */
+#header{
+    text-align:center;
+    padding:20px 0 10px 0;
+}
+
+#header h1{
+    font-family:'Special Elite', cursive;
+    font-size:48px;
+    margin:0;
+}
+
+#header h1 .yellow{
+    color:var(--xpanol-yellow);
+}
+
+#header h1 .red{
+    color:var(--xpanol-purple);
+}
+
+#header h2{
+    font-family:'Special Elite', cursive;
+    font-size:24px;
+    margin:5px 0 0 0;
+    color:#ffffff;
+}
+
+/* Controls */
+#controls{
+    position:fixed;
+    top:120px;
+    left:0;
+    width:100%;
+    background:#000;
+    padding:20px;
+    box-sizing:border-box;
+    z-index:10;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:20px;
+}
+
+label{
+    font-size:16px;
+    color:var(--xpanol-yellow);
+}
+
+input[type=range]{
+    width:180px;
+    accent-color:var(--xpanol-yellow);
+}
+
+button{
+    background:transparent;
+    border:2px solid var(--xpanol-yellow);
+    color:var(--xpanol-yellow);
+    font-family:'Special Elite', cursive;
+    font-size:14px;
+    padding:6px 14px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:var(--xpanol-yellow);
+    color:#000;
+}
+
+/* Teleprompter */
+#prompter-wrapper{
+    margin-top:150px;
+    height:calc(100vh - 150px);
+    overflow:hidden;
+    padding:40px;
+    box-sizing:border-box;
+}
+
+#prompter-text{
+    font-size:28px;
+    line-height:1.6;
+    position:relative;
+    max-width:800px;
+    margin:0 auto;
+}
+
+/* Language colours */
+.spanish{
+    color:var(--xpanol-yellow);
+}
+
+.english{
+    color:var(--xpanol-purple);
+}
+
+/* Hidden editor */
+#editorPanel{
+    position:fixed;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:80%;
+    max-width:900px;
+    height:70%;
+    background:#222;
+    color:#fff;
+    border:3px solid var(--xpanol-yellow);
+    padding:20px;
+    box-sizing:border-box;
+    z-index:20;
+    display:none;
+    flex-direction:column;
+}
+
+#editorPanel textarea{
+    flex:1;
+    width:100%;
+    height:100%;
+    background:#111;
+    color:#f2f2f2;
+    font-family:'Special Elite', cursive;
+    font-size:18px;
+    padding:10px;
+    box-sizing:border-box;
+    resize:none;
+    border:2px solid var(--xpanol-yellow);
+}
+
+#editorPanel button{
+    margin-top:10px;
+    align-self:flex-end;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Header -->
+<div id="header">
+    <h1>
+        <span class="yellow">PRO!</span>
+        <span class="red">READ</span>
+    </h1>
+
+    <h2>TRABALENGUAS | TONGUE TWISTER</h2>
+</div>
+
+<!-- Controls -->
+<div id="controls">
+
+    <button id="rewindBtn">Rewind</button>
+
+    <button id="playPauseBtn">Pause</button>
+
+    <button id="restartBtn">Restart</button>
+
+    <label>
+        Velocidad / Speed
+        <input
+            type="range"
+            id="speedControl"
+            min="0"
+            max="2"
+            step="0.1"
+            value="1"
+        >
+    </label>
+
+</div>
+
+<!-- Teleprompter -->
+<div id="prompter-wrapper">
+
+    <div id="prompter-text">
+
+        <p class="spanish">
+            Tres tráileres de tráfico trinan tendencias, tres tweets estratégicos
+            trazan tramas y trucos, tres trámites de tráfico triunfan
+            transformando target.
+        </p>
+
+        <p class="spanish">
+            Este trabalenguas digital ayuda a entrenar la pronunciación rápida
+            y mejora la fluidez al hablar sobre marketing digital en español.
+        </p>
+
+        <p class="spanish">
+            Marketing móvil mueve millones, mientras marcas medianas
+            multiplican métricas mediante mensajes memorables.
+        </p>
+
+        <p class="spanish">
+            Campañas creativas conectan clientes cautivos, creando contenido
+            cauteloso pero convincente que captura clicks constantes.
+        </p>
+
+        <p class="english">
+            Fast funnels fuel frequent followers, five Facebook frames frame
+            fantastic features, fickle flags of feedback favor forward-focused flows.
+        </p>
+
+        <p class="english">
+            This English tongue twister strengthens articulation and rhythm,
+            perfect for digital marketers practicing precise speech and copy delivery.
+        </p>
+
+        <p class="english">
+            Combine both sections to switch between Spanish and English seamlessly,
+            ideal for bilingual training sessions or multilingual presentations.
+        </p>
+
+        <p class="english">
+            Branding brilliance boosts big business, building better blogs,
+            bold banners, and brilliant buyer benefits.
+        </p>
+
+        <p class="english">
+            Social strategies swiftly spark shares, streamlining stories,
+            stimulating subscribers, and strengthening sales simultaneously.
+        </p>
+
+        <p class="english">
+            Email efforts elevate engagement efficiently, ensuring every email
+            elicits enthusiastic entries and expanding exposure exponentially.
+        </p>
+
+    </div>
+
+</div>
+
+<!-- Hidden editor -->
+<div id="editorPanel">
+
+    <textarea id="editorText"></textarea>
+
+    <button id="saveTextBtn">
+        Save & Close
+    </button>
+
+</div>
+
+<script>
+
+let speed = 1;
+let position = 0;
+let isPlaying = true;
+
+const text = document.getElementById("prompter-text");
+const speedControl = document.getElementById("speedControl");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const rewindBtn = document.getElementById("rewindBtn");
+const restartBtn = document.getElementById("restartBtn");
+
+const editorPanel = document.getElementById("editorPanel");
+const editorText = document.getElementById("editorText");
+const saveTextBtn = document.getElementById("saveTextBtn");
+
+
+/* Speed control */
+
+speedControl.addEventListener("input", function(){
+
+    speed = parseFloat(this.value);
+
+});
+
+
+/* Play / Pause */
+
+playPauseBtn.addEventListener("click", function(){
+
+    isPlaying = !isPlaying;
+
+    playPauseBtn.textContent =
+        isPlaying ? "Pause" : "Play";
+
+});
+
+
+/* Rewind */
+
+rewindBtn.addEventListener("click", function(){
+
+    position += 200;
+
+    text.style.top = position + "px";
+
+});
+
+
+/* Restart */
+
+restartBtn.addEventListener("click", function(){
+
+    position = 0;
+
+    text.style.top = position + "px";
+
+    isPlaying = true;
+
+    playPauseBtn.textContent = "Pause";
+
+});
+
+
+/* Ctrl + E editor */
+
+document.addEventListener("keydown", function(e){
+
+    if(e.ctrlKey && e.key.toLowerCase() === "e"){
+
+        e.preventDefault();
+
+        if(editorPanel.style.display === "flex"){
+
+            editorPanel.style.display = "none";
+
+        }else{
+
+            editorText.value =
+                text.innerHTML
+                .replace(/<br>/g,"\n")
+                .replace(/<\/p><p>/g,"\n\n")
+                .replace(/<\/?p[^>]*>/g,"");
+
+            editorPanel.style.display = "flex";
+
+            editorText.focus();
+
+        }
+
+    }
+
+});
+
+
+/* Save new text */
+
+saveTextBtn.addEventListener("click", function(){
+
+    const newText = editorText.value
+
+        .split("\n\n")
+
+        .map(function(p){
+
+            const langClass =
+                /[áéíóúñÁÉÍÓÚÑ]/.test(p)
+                ? "spanish"
+                : "english";
+
+            return (
+                "<p class='" +
+                langClass +
+                "'>" +
+                p.replace(/\n/g," ") +
+                "</p>"
+            );
+
+        })
+
+        .join("");
+
+    text.innerHTML = newText;
+
+    editorPanel.style.display = "none";
+
+    position = 0;
+
+    text.style.top = position + "px";
+
+});
+
+
+/* Automatic scrolling */
+
+function scrollText(){
+
+    if(isPlaying){
+
+        position -= speed;
+
+        text.style.top = position + "px";
+
+    }
+
+    requestAnimationFrame(scrollText);
+
+}
+
+scrollText();
+
+</script>
+
+</body>
+</html>
