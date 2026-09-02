@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>PRO!READ</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
 
 <style>
+
 :root{
     --xpanol-yellow:#F8AC10;
     --xpanol-purple:#7C3AED;
@@ -19,7 +22,11 @@ body{
     font-family:'Special Elite', cursive;
 }
 
-/* Header */
+
+/* =========================================
+   HEADER
+========================================= */
+
 #header{
     text-align:center;
     padding:20px 0 10px 0;
@@ -46,7 +53,11 @@ body{
     color:#ffffff;
 }
 
-/* Controls */
+
+/* =========================================
+   MAIN CONTROLS
+========================================= */
+
 #controls{
     position:fixed;
     top:120px;
@@ -56,10 +67,12 @@ body{
     padding:20px;
     box-sizing:border-box;
     z-index:10;
+
     display:flex;
     justify-content:center;
     align-items:center;
     gap:20px;
+    flex-wrap:wrap;
 }
 
 label{
@@ -67,10 +80,21 @@ label{
     color:var(--xpanol-yellow);
 }
 
+
+/* =========================================
+   SPEED SLIDER
+========================================= */
+
 input[type=range]{
     width:180px;
     accent-color:var(--xpanol-yellow);
+    vertical-align:middle;
 }
+
+
+/* =========================================
+   ALL BUTTONS
+========================================= */
 
 button{
     background:transparent;
@@ -78,8 +102,10 @@ button{
     color:var(--xpanol-yellow);
     font-family:'Special Elite', cursive;
     font-size:14px;
-    padding:6px 14px;
+    padding:7px 15px;
     cursor:pointer;
+    border-radius:8px;
+    transition:all 0.15s ease;
 }
 
 button:hover{
@@ -87,24 +113,174 @@ button:hover{
     color:#000;
 }
 
-/* Teleprompter */
+
+/* =========================================
+   TEXT SELECTOR
+========================================= */
+
+#textSelector{
+    position:fixed;
+    top:190px;
+    left:0;
+    width:100%;
+    background:#000;
+    padding:12px 20px;
+    box-sizing:border-box;
+    z-index:9;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+#textSelector label{
+    color:var(--xpanol-yellow);
+}
+
+#textSelect{
+    background:#111;
+    color:#fff;
+    border:2px solid var(--xpanol-yellow);
+    padding:7px 12px;
+    font-family:'Special Elite', cursive;
+    font-size:14px;
+    min-width:300px;
+    border-radius:8px;
+}
+
+
+/* =========================================
+   LOAD TEXT BUTTON
+========================================= */
+
+#loadTextBtn{
+    border-color:var(--xpanol-purple);
+    color:var(--xpanol-purple);
+}
+
+#loadTextBtn:hover{
+    background:var(--xpanol-purple);
+    color:#fff;
+}
+
+
+/* =========================================
+   OWN TEXT BUTTON
+========================================= */
+
+#ownTextBtn{
+    border-color:var(--xpanol-yellow);
+    color:var(--xpanol-yellow);
+}
+
+#ownTextBtn:hover{
+    background:var(--xpanol-yellow);
+    color:#000;
+}
+
+
+/* =========================================
+   CUSTOM TEXT AREA
+========================================= */
+
+#customTextArea{
+    position:fixed;
+
+    top:245px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:80%;
+    max-width:900px;
+
+    height:120px;
+
+    background:#222;
+    color:#fff;
+
+    border:2px solid var(--xpanol-yellow);
+
+    padding:12px;
+
+    box-sizing:border-box;
+
+    font-family:'Special Elite', cursive;
+    font-size:16px;
+
+    resize:none;
+
+    display:none;
+
+    z-index:20;
+
+    border-radius:8px;
+}
+
+
+/* =========================================
+   CUSTOM CONTROLS
+========================================= */
+
+#customControls{
+    position:fixed;
+
+    top:375px;
+    left:50%;
+
+    transform:translateX(-50%);
+
+    display:none;
+
+    gap:10px;
+
+    z-index:21;
+}
+
+.customLanguageBtn{
+    min-width:70px;
+}
+
+.customLanguageBtn.active{
+    background:var(--xpanol-yellow);
+    color:#000;
+}
+
+
+/* =========================================
+   PROMPTER
+========================================= */
+
 #prompter-wrapper{
-    margin-top:150px;
+    margin-top:250px;
+
     height:calc(100vh - 150px);
+
     overflow:hidden;
+
     padding:40px;
+
     box-sizing:border-box;
 }
 
 #prompter-text{
     font-size:28px;
     line-height:1.6;
+
     position:relative;
+
     max-width:800px;
+
     margin:0 auto;
 }
 
-/* Language colours */
+
+/* =========================================
+   LANGUAGE COLOURS
+========================================= */
+
 .spanish{
     color:var(--xpanol-yellow);
 }
@@ -113,106 +289,315 @@ button:hover{
     color:var(--xpanol-purple);
 }
 
-/* Hidden editor */
+
+/* =========================================
+   EDITOR
+========================================= */
+
 #editorPanel{
     position:fixed;
+
     top:50%;
     left:50%;
+
     transform:translate(-50%,-50%);
+
     width:80%;
     max-width:900px;
+
     height:70%;
+
     background:#222;
+
     color:#fff;
+
     border:3px solid var(--xpanol-yellow);
+
     padding:20px;
+
     box-sizing:border-box;
-    z-index:20;
+
+    z-index:30;
+
     display:none;
+
     flex-direction:column;
+
+    border-radius:10px;
 }
 
 #editorPanel textarea{
     flex:1;
+
     width:100%;
     height:100%;
+
     background:#111;
+
     color:#f2f2f2;
+
     font-family:'Special Elite', cursive;
+
     font-size:18px;
+
     padding:10px;
+
     box-sizing:border-box;
+
     resize:none;
+
     border:2px solid var(--xpanol-yellow);
+
+    border-radius:8px;
 }
 
 #editorPanel button{
     margin-top:10px;
     align-self:flex-end;
 }
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media(max-width:700px){
+
+    #header h1{
+        font-size:38px;
+    }
+
+    #header h2{
+        font-size:18px;
+    }
+
+    #controls{
+        top:100px;
+        gap:10px;
+        padding:12px;
+    }
+
+    #textSelector{
+        top:170px;
+        padding:10px;
+    }
+
+    #textSelect{
+        min-width:220px;
+        max-width:90%;
+    }
+
+    #prompter-wrapper{
+        margin-top:150px;
+    }
+
+    #prompter-text{
+        font-size:23px;
+    }
+
+}
+
 </style>
 </head>
 
+
 <body>
 
-<!-- Header -->
+
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <div id="header">
+
     <h1>
         <span class="yellow">PRO!</span>
         <span class="red">READ</span>
     </h1>
 
-    <h2>TRABALENGUAS | TONGUE TWISTER</h2>
+    <h2>
+        TRABALENGUAS | TONGUE TWISTER
+    </h2>
+
 </div>
 
-<!-- Controls -->
+
+<!-- =========================================
+     MAIN CONTROLS
+========================================= -->
+
 <div id="controls">
 
-    <button id="rewindBtn">Rewind</button>
+    <button
+        id="rewindBtn"
+        data-en="Rewind"
+        data-es="Retroceder">
+        Rewind
+    </button>
 
-    <button id="playPauseBtn">Pause</button>
+    <button
+        id="playPauseBtn"
+        data-en="Pause"
+        data-es="Pausa">
+        Pause
+    </button>
 
-    <button id="restartBtn">Restart</button>
+    <button
+        id="restartBtn"
+        data-en="Restart"
+        data-es="Reiniciar">
+        Restart
+    </button>
 
     <label>
+
         Velocidad / Speed
+
         <input
             type="range"
             id="speedControl"
             min="0"
-            max="2"
-            step="0.1"
-            value="1"
-        >
+            max="1.5"
+            step="0.05"
+            value="0.75">
+
     </label>
 
 </div>
 
-<!-- Teleprompter -->
+
+<!-- =========================================
+     TEXT SELECTOR
+========================================= -->
+
+<div id="textSelector">
+
+    <label for="textSelect">
+        Text
+    </label>
+
+    <select id="textSelect">
+
+        <option value="es1">
+            ES 01 - Marketing Digital
+        </option>
+
+        <option value="es2">
+            ES 02 - Redes Sociales
+        </option>
+
+        <option value="es3">
+            ES 03 - SEO y Contenido
+        </option>
+
+        <option value="en1">
+            EN 01 - Digital Marketing
+        </option>
+
+        <option value="en2">
+            EN 02 - Social Media
+        </option>
+
+        <option value="en3">
+            EN 03 - SEO and Content
+        </option>
+
+    </select>
+
+
+    <button
+        id="loadTextBtn"
+        data-en="Load Text"
+        data-es="Cargar Texto">
+
+        Load Text
+
+    </button>
+
+
+    <button
+        id="ownTextBtn"
+        data-en="PASTE YOUR OWN TEXT"
+        data-es="PEGAR MI TEXTO">
+
+        PASTE YOUR OWN TEXT
+
+    </button>
+
+</div>
+
+
+<!-- =========================================
+     CUSTOM TEXT
+========================================= -->
+
+<textarea
+    id="customTextArea"
+    placeholder="Paste your own text here...">
+</textarea>
+
+
+<div id="customControls">
+
+    <button
+        class="customLanguageBtn active"
+        id="customES">
+
+        ES
+
+    </button>
+
+    <button
+        class="customLanguageBtn"
+        id="customEN">
+
+        EN
+
+    </button>
+
+    <button
+        id="useCustomTextBtn"
+        data-en="Use Text"
+        data-es="Usar Texto">
+
+        Use Text
+
+    </button>
+
+</div>
+
+
+<!-- =========================================
+     PROMPTER
+========================================= -->
+
 <div id="prompter-wrapper">
 
     <div id="prompter-text">
 
+
+        <!-- DEFAULT SPANISH TEXT -->
+
         <p class="spanish">
-            Tres tráileres de tráfico trinan tendencias, tres tweets estratégicos
-            trazan tramas y trucos, tres trámites de tráfico triunfan
-            transformando target.
+            Tres estrategias sociales se sincronizan: segmentación, storytelling y
+            seguimiento de señales, seleccionando segmentos sensibles para
+            simplificar campañas y sostener conversaciones significativas.
         </p>
 
         <p class="spanish">
-            Este trabalenguas digital ayuda a entrenar la pronunciación rápida
-            y mejora la fluidez al hablar sobre marketing digital en español.
+            Marketing móvil multiplica mensajes medibles mientras microcreadores
+            mantienen comunidades motivadas, mejorando métricas, menciones,
+            mensajes y conversiones.
         </p>
 
         <p class="spanish">
-            Marketing móvil mueve millones, mientras marcas medianas
-            multiplican métricas mediante mensajes memorables.
+            El contenido corto captura clientes curiosos, convierte clics
+            cualificados y crea conexiones constantes mediante creatividad,
+            contexto y consistencia.
         </p>
 
-        <p class="spanish">
-            Campañas creativas conectan clientes cautivos, creando contenido
-            cauteloso pero convincente que captura clicks constantes.
-        </p>
+
+        <!-- DEFAULT ENGLISH TEXT -->
 
         <p class="english">
             Fast funnels fuel frequent followers, five Facebook frames frame
@@ -225,188 +610,578 @@ button:hover{
         </p>
 
         <p class="english">
-            Combine both sections to switch between Spanish and English seamlessly,
-            ideal for bilingual training sessions or multilingual presentations.
-        </p>
-
-        <p class="english">
-            Branding brilliance boosts big business, building better blogs,
-            bold banners, and brilliant buyer benefits.
-        </p>
-
-        <p class="english">
-            Social strategies swiftly spark shares, streamlining stories,
-            stimulating subscribers, and strengthening sales simultaneously.
-        </p>
-
-        <p class="english">
-            Email efforts elevate engagement efficiently, ensuring every email
-            elicits enthusiastic entries and expanding exposure exponentially.
+            Search specialists structure semantic content, strengthen technical
+            SEO, study search intent, and strategically improve visibility
+            without sacrificing readability.
         </p>
 
     </div>
 
 </div>
 
-<!-- Hidden editor -->
+
+<!-- =========================================
+     HIDDEN EDITOR
+========================================= -->
+
 <div id="editorPanel">
 
     <textarea id="editorText"></textarea>
 
-    <button id="saveTextBtn">
+    <button
+        id="saveTextBtn"
+        data-en="Save & Close"
+        data-es="Guardar y Cerrar">
+
         Save & Close
+
     </button>
 
 </div>
 
+
 <script>
 
-let speed = 1;
+
+/* =========================================
+   TEXT LIBRARY
+========================================= */
+
+const texts = {
+
+
+    es1: `
+Tres estrategias sociales se sincronizan: segmentación, storytelling y seguimiento de señales, seleccionando segmentos sensibles para simplificar campañas y sostener conversaciones significativas.
+
+Marketing móvil multiplica mensajes medibles mientras microcreadores mantienen comunidades motivadas, mejorando métricas, menciones, mensajes y conversiones.
+`,
+
+
+    es2: `
+Creadores y community managers conectan conversaciones, contenidos y comunidades, combinando creatividad con criterios claros para convertir comentarios curiosos en conversaciones comerciales.
+
+Las marcas monitorizan menciones, moderan mensajes, miden interacciones y mantienen relaciones consistentes mientras las plataformas cambian sus formatos y algoritmos.
+`,
+
+
+    es3: `
+El contenido corto captura clientes curiosos, convierte clics cualificados y crea conexiones constantes mediante creatividad, contexto y consistencia.
+
+Especialistas en SEO estudian señales semánticas, intención de búsqueda y estructuras de contenido para mejorar la visibilidad sin sacrificar claridad ni experiencia de usuario.
+`,
+
+
+    en1: `
+Digital marketers build better buyer journeys by blending brand strategy, behavioural data, targeted messaging, and measurable campaign performance.
+
+Performance teams test, track, tweak, and transform campaigns by comparing conversion rates, customer signals, creative variations, and channel efficiency.
+`,
+
+
+    en2: `
+Social media strategists sharpen short-form storytelling, schedule strategic posts, strengthen community engagement, and track meaningful signals across multiple platforms.
+
+Brands build stronger communities by responding rapidly, creating relevant conversations, refining creative formats, and measuring meaningful interactions rather than meaningless metrics.
+`,
+
+
+    en3: `
+Search specialists structure semantic content, strengthen technical SEO, study search intent, and strategically improve visibility without sacrificing readability.
+
+Content creators research relevant topics, write concise copy, refine headlines, and restructure resources so that search engines and real readers can understand the message.
+`
+
+};
+
+
+/* =========================================
+   VARIABLES
+========================================= */
+
+let speed = 0.75;
 let position = 0;
 let isPlaying = true;
 
-const text = document.getElementById("prompter-text");
-const speedControl = document.getElementById("speedControl");
-const playPauseBtn = document.getElementById("playPauseBtn");
-const rewindBtn = document.getElementById("rewindBtn");
-const restartBtn = document.getElementById("restartBtn");
-
-const editorPanel = document.getElementById("editorPanel");
-const editorText = document.getElementById("editorText");
-const saveTextBtn = document.getElementById("saveTextBtn");
+let customLanguage = "spanish";
 
 
-/* Speed control */
+/* =========================================
+   ELEMENTS
+========================================= */
 
-speedControl.addEventListener("input", function(){
+const text =
+    document.getElementById("prompter-text");
 
-    speed = parseFloat(this.value);
+const speedControl =
+    document.getElementById("speedControl");
+
+const playPauseBtn =
+    document.getElementById("playPauseBtn");
+
+const rewindBtn =
+    document.getElementById("rewindBtn");
+
+const restartBtn =
+    document.getElementById("restartBtn");
+
+const textSelect =
+    document.getElementById("textSelect");
+
+const loadTextBtn =
+    document.getElementById("loadTextBtn");
+
+const ownTextBtn =
+    document.getElementById("ownTextBtn");
+
+const customTextArea =
+    document.getElementById("customTextArea");
+
+const customControls =
+    document.getElementById("customControls");
+
+const customES =
+    document.getElementById("customES");
+
+const customEN =
+    document.getElementById("customEN");
+
+const useCustomTextBtn =
+    document.getElementById("useCustomTextBtn");
+
+const editorPanel =
+    document.getElementById("editorPanel");
+
+const editorText =
+    document.getElementById("editorText");
+
+const saveTextBtn =
+    document.getElementById("saveTextBtn");
+
+
+/* =========================================
+   BILINGUAL BUTTONS
+========================================= */
+
+const bilingualButtons =
+    document.querySelectorAll(
+        "button[data-en][data-es]"
+    );
+
+
+bilingualButtons.forEach(function(button){
+
+    button.addEventListener(
+        "mouseenter",
+        function(){
+
+            button.textContent =
+                button.dataset.es;
+
+        }
+    );
+
+
+    button.addEventListener(
+        "mouseleave",
+        function(){
+
+            button.textContent =
+                button.dataset.en;
+
+        }
+    );
 
 });
 
 
-/* Play / Pause */
+/* =========================================
+   OWN TEXT
+========================================= */
 
-playPauseBtn.addEventListener("click", function(){
+ownTextBtn.addEventListener(
+    "click",
+    function(){
 
-    isPlaying = !isPlaying;
+        customTextArea.style.display =
+            "block";
 
-    playPauseBtn.textContent =
-        isPlaying ? "Pause" : "Play";
+        customControls.style.display =
+            "flex";
 
-});
+        customTextArea.focus();
 
-
-/* Rewind */
-
-rewindBtn.addEventListener("click", function(){
-
-    position += 200;
-
-    text.style.top = position + "px";
-
-});
+    }
+);
 
 
-/* Restart */
+/* =========================================
+   LOAD LIBRARY TEXT
+========================================= */
 
-restartBtn.addEventListener("click", function(){
+function loadLibraryText(){
+
+    const selected =
+        textSelect.value;
+
+
+    customTextArea.style.display =
+        "none";
+
+    customControls.style.display =
+        "none";
+
+
+    const content =
+        texts[selected];
+
+
+    const paragraphs =
+        content
+        .trim()
+        .split(/\n\s*\n/);
+
+
+    const language =
+        selected.startsWith("es")
+        ? "spanish"
+        : "english";
+
+
+    text.innerHTML =
+        paragraphs
+        .map(function(paragraph){
+
+            return `
+                <p class="${language}">
+                    ${paragraph.trim()}
+                </p>
+            `;
+
+        })
+        .join("");
+
+
+    resetPrompter();
+
+}
+
+
+/* =========================================
+   LOAD BUTTON
+========================================= */
+
+loadTextBtn.addEventListener(
+    "click",
+    loadLibraryText
+);
+
+
+/* =========================================
+   CUSTOM LANGUAGE ES
+========================================= */
+
+customES.addEventListener(
+    "click",
+    function(){
+
+        customLanguage =
+            "spanish";
+
+        customES.classList.add("active");
+
+        customEN.classList.remove("active");
+
+    }
+);
+
+
+/* =========================================
+   CUSTOM LANGUAGE EN
+========================================= */
+
+customEN.addEventListener(
+    "click",
+    function(){
+
+        customLanguage =
+            "english";
+
+        customEN.classList.add("active");
+
+        customES.classList.remove("active");
+
+    }
+);
+
+
+/* =========================================
+   USE CUSTOM TEXT
+========================================= */
+
+useCustomTextBtn.addEventListener(
+    "click",
+    function(){
+
+        const content =
+            customTextArea.value.trim();
+
+
+        if(!content){
+
+            alert(
+                "Please paste your text first."
+            );
+
+            return;
+
+        }
+
+
+        const paragraphs =
+            content
+            .split(/\n\s*\n/)
+            .filter(function(paragraph){
+
+                return paragraph.trim() !== "";
+
+            });
+
+
+        text.innerHTML =
+            paragraphs
+            .map(function(paragraph){
+
+                return `
+                    <p class="${customLanguage}">
+                        ${paragraph
+                            .trim()
+                            .replace(/\n/g," ")}
+                    </p>
+                `;
+
+            })
+            .join("");
+
+
+        customTextArea.style.display =
+            "none";
+
+        customControls.style.display =
+            "none";
+
+
+        resetPrompter();
+
+    }
+);
+
+
+/* =========================================
+   SPEED CONTROL
+========================================= */
+
+speedControl.addEventListener(
+    "input",
+    function(){
+
+        speed =
+            parseFloat(this.value);
+
+    }
+);
+
+
+/* =========================================
+   PLAY / PAUSE
+========================================= */
+
+playPauseBtn.addEventListener(
+    "click",
+    function(){
+
+        isPlaying =
+            !isPlaying;
+
+        playPauseBtn.textContent =
+            isPlaying
+            ? "Pause"
+            : "Play";
+
+    }
+);
+
+
+/* =========================================
+   REWIND
+========================================= */
+
+rewindBtn.addEventListener(
+    "click",
+    function(){
+
+        position += 200;
+
+        text.style.top =
+            position + "px";
+
+    }
+);
+
+
+/* =========================================
+   RESTART
+========================================= */
+
+restartBtn.addEventListener(
+    "click",
+    function(){
+
+        resetPrompter();
+
+    }
+);
+
+
+/* =========================================
+   RESET PROMPTER
+========================================= */
+
+function resetPrompter(){
 
     position = 0;
 
-    text.style.top = position + "px";
+    text.style.top =
+        position + "px";
 
     isPlaying = true;
 
-    playPauseBtn.textContent = "Pause";
+    playPauseBtn.textContent =
+        "Pause";
 
-});
+}
 
 
-/* Ctrl + E editor */
+/* =========================================
+   CTRL + E EDITOR
+========================================= */
 
-document.addEventListener("keydown", function(e){
+document.addEventListener(
+    "keydown",
+    function(e){
 
-    if(e.ctrlKey && e.key.toLowerCase() === "e"){
+        if(
+            e.ctrlKey &&
+            e.key.toLowerCase() === "e"
+        ){
 
-        e.preventDefault();
+            e.preventDefault();
 
-        if(editorPanel.style.display === "flex"){
 
-            editorPanel.style.display = "none";
+            if(
+                editorPanel.style.display === "flex"
+            ){
 
-        }else{
+                editorPanel.style.display =
+                    "none";
 
-            editorText.value =
-                text.innerHTML
-                .replace(/<br>/g,"\n")
-                .replace(/<\/p><p>/g,"\n\n")
-                .replace(/<\/?p[^>]*>/g,"");
+            }else{
 
-            editorPanel.style.display = "flex";
+                editorText.value =
+                    text.innerHTML
+                    .replace(/<br>/g,"\n")
+                    .replace(
+                        /<\/p><p[^>]*>/g,
+                        "\n\n"
+                    )
+                    .replace(
+                        /<\/?p[^>]*>/g,
+                        ""
+                    );
 
-            editorText.focus();
+
+                editorPanel.style.display =
+                    "flex";
+
+
+                editorText.focus();
+
+            }
 
         }
 
     }
-
-});
-
-
-/* Save new text */
-
-saveTextBtn.addEventListener("click", function(){
-
-    const newText = editorText.value
-
-        .split("\n\n")
-
-        .map(function(p){
-
-            const langClass =
-                /[áéíóúñÁÉÍÓÚÑ]/.test(p)
-                ? "spanish"
-                : "english";
-
-            return (
-                "<p class='" +
-                langClass +
-                "'>" +
-                p.replace(/\n/g," ") +
-                "</p>"
-            );
-
-        })
-
-        .join("");
-
-    text.innerHTML = newText;
-
-    editorPanel.style.display = "none";
-
-    position = 0;
-
-    text.style.top = position + "px";
-
-});
+);
 
 
-/* Automatic scrolling */
+/* =========================================
+   SAVE EDITOR
+========================================= */
+
+saveTextBtn.addEventListener(
+    "click",
+    function(){
+
+        const newText =
+            editorText.value
+            .split("\n\n")
+            .filter(function(paragraph){
+
+                return paragraph.trim() !== "";
+
+            })
+            .map(function(paragraph){
+
+                const langClass =
+                    /[áéíóúñÁÉÍÓÚÑ]/.test(paragraph)
+                    ? "spanish"
+                    : "english";
+
+
+                return `
+                    <p class="${langClass}">
+                        ${paragraph.replace(/\n/g," ")}
+                    </p>
+                `;
+
+            })
+            .join("");
+
+
+        text.innerHTML =
+            newText;
+
+
+        editorPanel.style.display =
+            "none";
+
+
+        resetPrompter();
+
+    }
+);
+
+
+/* =========================================
+   TELEPROMPTER SCROLL
+========================================= */
 
 function scrollText(){
 
     if(isPlaying){
 
-        position -= speed;
+        position -= speed * 0.65;
 
-        text.style.top = position + "px";
+        text.style.top =
+            position + "px";
 
     }
 
-    requestAnimationFrame(scrollText);
+    requestAnimationFrame(
+        scrollText
+    );
 
 }
+
 
 scrollText();
 
